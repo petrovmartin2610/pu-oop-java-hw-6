@@ -1,5 +1,10 @@
 import java.awt.*;
 
+/**
+ * @author Martin Petrov
+ * Клас, генериращ общи характеристики на всички игрални обекти, които впоследствие ще го наследят за да може
+ * да се осъществи кастване на обекти при прерисуване на дъската
+ */
 public class GameScreenLayout{
     private int row;
     private int col;

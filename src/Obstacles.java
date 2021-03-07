@@ -1,5 +1,9 @@
 import java.awt.*;
 
+/**
+ * @author Martin Petrov
+ * Клас генериращ характеристиките на препятствията
+ */
 public class Obstacles extends GameScreenLayout{
     public int row;
     public int col;

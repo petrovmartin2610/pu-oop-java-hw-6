@@ -1,5 +1,9 @@
 import java.awt.*;
 
+/**
+ * @author Martin Petrov
+ * Клас генериращ характеристиките на змията
+ */
 public class Snake extends GameScreenLayout{
     public int row;
     public int col;

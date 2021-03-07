@@ -4,12 +4,16 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * @author Martin Petrov
+ * Клас GameScreen, изобразяващ игралната дъска и отделните елементи в нея (препятствия, ябълки, змия)
+ */
 public class GameScreen extends JFrame implements MouseListener {
-    private GameScreenLayout[][] gameScreen;
-    int originalSnakeRow;
-    int originalSnakeCol;
-    int pointsCount;
-    int numberOfApples;
+    private GameScreenLayout[][] gameScreen;                //обект-масив съхраняващ всички елементи
+    int originalSnakeRow;                                   //глобална пр-ва съхраняваща оригиналната генерирана row коорд-та за змията
+    int originalSnakeCol;                                   //глобална пр-ва съхраняваща оригиналната генерирана col коорд-та за змията
+    int pointsCount;                                        //глобална пр-ва съхраняваща броя натрупани точки до момента
+    int numberOfApples;                                     //глобална пр-ва съхраняваща броя генерирани ябълки
     Snake s1;
     Obstacles o1;
     Apples a1;
@@ -20,6 +24,7 @@ public class GameScreen extends JFrame implements MouseListener {
         Color color = null;
 
 
+        //първоначално изобразяване на цялото игрално поле
         int row = 0;
         int col = 0;
         for (row = 1; row < 35; row++) {
@@ -27,28 +32,18 @@ public class GameScreen extends JFrame implements MouseListener {
                 this.gameScreen[row][col] = new GameScreenLayout(row, col, color.GREEN);
             }
         }
+        //извикване на съответни методи за изрисуване на отделните обекти в/у вече генерираното поле
         printObstacles();
         printApples();
         printSnake();
 
+        //хар-ки на JFrame
         this.setSize(700, 700);
         this.setVisible(true);
         this.setTitle("Snake game");
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.addMouseListener(this);
 
-        JPanel buttonContainer = new JPanel();
-        JButton start = new JButton("Start");
-        JButton pause = new JButton("Pause");
-        JButton restart = new JButton("Restart");
-        buttonContainer.add(start);
-        buttonContainer.add(pause);
-        buttonContainer.add(restart);
-        buttonContainer.setLayout(null);
-        buttonContainer.setBounds(500, 100, 50, 50);
-        buttonContainer.setSize(250, 250);
-        buttonContainer.setVisible(true);
-        buttonContainer.repaint(500, 100, 50, 50);
     }
 
 
@@ -63,6 +58,7 @@ public class GameScreen extends JFrame implements MouseListener {
         }
     }
 
+    //метод изрисуващ препятствията по игралното поле
     public void printObstacles() {
         int numberOfGeneratedObstacles = ThreadLocalRandom.current().nextInt(1, 10);
 
@@ -76,6 +72,7 @@ public class GameScreen extends JFrame implements MouseListener {
         }
     }
 
+    //метод изрисуващ ябълките по игралното поле
     public void printApples() {
         int numberOfGeneratedApples = ThreadLocalRandom.current().nextInt(1, 20);
 
@@ -90,6 +87,7 @@ public class GameScreen extends JFrame implements MouseListener {
         numberOfApples = numberOfGeneratedApples;
     }
 
+    //метод изрисуващ змията по игралното поле
     public void printSnake() {
         int row = ThreadLocalRandom.current().nextInt(1, 35);
         int col = ThreadLocalRandom.current().nextInt(1, 35);
@@ -101,25 +99,30 @@ public class GameScreen extends JFrame implements MouseListener {
         originalSnakeCol = col;
     }
 
+    //метод печатещ съобщение за победител
     public void youAreAWinner() {
         System.out.println("You are a winner!");
     }
 
+    //метод печатещ съобщение за край на играта
     public void gameOver() {
         System.out.println("Game over!");
     }
 
+    //метод взимащ отделните квадратчета от игралното поле
     private Object getBoardPixel(int row, int col) {
         return this.gameScreen[row][col];
     }
 
+    //метод изчисляващ координатите на квадратчетата
     private int tileCoordinates(int pixelCoordinates) {
         return pixelCoordinates / GameScreenLayout.getPixelSize();
     }
 
+
+    //метод извършващ движение на змията и действия с отделни обекти чрез кликане от потребителя
     @Override
     public void mouseClicked(MouseEvent e) {
-
         System.out.println(this.tileCoordinates(e.getX()));
         System.out.println(this.tileCoordinates(e.getY()));
 
@@ -156,6 +159,7 @@ public class GameScreen extends JFrame implements MouseListener {
             youAreAWinner();
         }
         this.repaint();
+
         /**код с private статични row и col и техни гетъри, поради някаква причина съсипва изобразяването на
          игралното поле, отделните обекти се изобразяват бели
          /------------------------------------------------------------------------------------------------/

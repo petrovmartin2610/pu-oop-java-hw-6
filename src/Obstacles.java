@@ -1,8 +1,8 @@
 import java.awt.*;
 
 public class Obstacles extends GameScreenLayout{
-    private int row;
-    private int col;
+    public int row;
+    public int col;
     private int pixelSize=12;
     Color color;
 
@@ -12,8 +12,6 @@ public class Obstacles extends GameScreenLayout{
         this.col=col;
         this.color=color;
     }
-
-
 
     public void render(Graphics g) {
         int tileX = this.row * pixelSize;

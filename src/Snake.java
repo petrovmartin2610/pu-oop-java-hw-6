@@ -1,12 +1,13 @@
 import java.awt.*;
 
-public class Snake{
-    private int row;
-    private int col;
+public class Snake extends GameScreenLayout{
+    public int row;
+    public int col;
     private int pixelSize=12;
     Color color;
 
     public Snake(int row, int col, Color color){
+        super(row, col, color);
         this.row=row;
         this.col=col;
         this.color=color;
